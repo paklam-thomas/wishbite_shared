@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["PX2M2FQ5MN.com.thomaskong.wishbite"],
+        "components": [
+          { "/": "/join", "comment": "Somedate invite links: somedate.app/join?c=<iCloud share code>" },
+          { "/": "/join/", "comment": "the same, with a trailing slash" }
+        ]
+      }
+    ]
+  }
+}

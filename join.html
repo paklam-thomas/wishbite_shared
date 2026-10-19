@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Join a list on Somedate · 遲啲去</title>
+<meta name="description" content="Someone shared a Somedate list of places to go with you. Open it on your iPhone to join.">
+<meta property="og:title" content="Join my list on Somedate · 遲啲去">
+<meta property="og:description" content="A shared list of places to go. Tap to open it in Somedate on your iPhone.">
+<meta property="og:image" content="https://somedate.app/og.png">
+<meta property="og:site_name" content="Somedate">
+<meta name="theme-color" content="#2b2550">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/icon.png">
+<style>
+/* Somedate's invite page: the night sky of the app icon (one look, light or dark phone alike), one pink button. */
+:root { --top: #3b2f63; --bottom: #1f2a4d; --text: #ffffff; --soft: #cfc8ee; --rose: #e84d73; --panel: rgba(255,255,255,.09); --line: rgba(255,255,255,.28); color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body { margin: 0; background: linear-gradient(170deg, var(--top), var(--bottom)) fixed; background-color: var(--bottom); color: var(--text);
+       font: 17px/1.5 -apple-system, "SF Pro Text", "PingFang HK", "Noto Sans TC", sans-serif; -webkit-text-size-adjust: 100%; }
+main { max-width: 420px; margin: 0 auto; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;
+       padding: max(40px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
+.icon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 8px 28px rgba(0,0,0,.35); }
+.who { margin: 6px 0 0; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--soft); }
+h1 { margin: 0; font-size: 28px; line-height: 1.2; text-wrap: balance; overflow-wrap: anywhere; }
+.sub { margin: 0; color: var(--soft); font-size: 16px; }
+.btn { display: block; width: 100%; border: 0; border-radius: 14px; padding: 15px; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+.go { margin-top: 10px; background: var(--rose); color: #fff; font-size: 18px; }
+.go:active { transform: scale(.98); }
+.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); font-weight: 600; }
+.btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.panel { width: 100%; text-align: left; background: var(--panel); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
+.panel p { margin: 0; }
+.step { display: flex; gap: 10px; align-items: flex-start; }
+.step b { flex: none; width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.18); display: grid; place-items: center; font-size: 12px; margin-top: 1px; }
+.small { margin: auto 0 0; padding-top: 16px; font-size: 13px; color: var(--soft); }
+.tip { font-size: 14px; color: var(--soft); margin: 0; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) { .go:active { transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <img class="icon" src="/icon.png" alt="Somedate">
+  <p class="who" id="who"></p>
+  <h1 id="title"></h1>
+  <p class="sub" id="sub"></p>
+
+  <div id="iphone" hidden style="width:100%;display:flex;flex-direction:column;gap:10px">
+    <a class="btn go" id="open" href="#"></a>
+    <p class="tip" id="tip" hidden></p>
+    <button class="btn ghost" id="noApp" type="button"></button>
+    <div class="panel" id="getIt" hidden>
+      <div class="step"><b>1</b><p id="s1"></p></div>
+      <div class="step"><b>2</b><p id="s2"></p></div>
+      <div class="step"><b>3</b><p id="s3"></p></div>
+    </div>
+  </div>
+
+  <div id="other" hidden style="width:100%;display:flex;flex-direction:column;gap:10px">
+    <div class="panel"><p id="otherText"></p></div>
+    <button class="btn ghost" id="copy" type="button"></button>
+  </div>
+
+  <p class="small" id="small"></p>
+</main>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var code = q.get("c") || "", list = q.get("n") || "", from = q.get("f") || "";
+  var zh = /^zh/i.test(navigator.language || "");
+  var ua = navigator.userAgent || "";
+  var iOS = /iPhone|iPod|iPad/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var inApp = /Instagram|FBAN|FBAV|FB_IAB|Threads|Line\/|MicroMessenger/.test(ua);
+  var them = from || (zh ? "邀請你嘅人" : "the person who invited you");
+
+  // English, and Cantonese for a phone set to Chinese (drafts - see the app's Localizable.strings for the voice)
+  var t = zh ? {
+    who: from ? from + " 邀請你" : "你收到一個邀請",
+    title: list ? "加入「" + list + "」" : "加入一個 Somedate 清單",
+    sub: "一齊儲想去嘅地方。大家加嘅地方，兩部電話都見到。",
+    open: "用 Somedate 打開",
+    noApp: "未有 Somedate？",
+    s1: "Somedate 仲喺測試緊。叫" + them + "加你做測試者，你會收到 TestFlight 嘅電郵。",
+    s2: "裝 TestFlight，再喺入面裝 Somedate · 遲啲去。",
+    s3: "返嚟呢版，撳「用 Somedate 打開」。",
+    tip: "冇反應？撳右上角 ··· › 用瀏覽器打開，再試一次。",
+    small: "你部 iPhone 要登入咗 iCloud。",
+    other: "Somedate 係 iPhone App。喺你部 iPhone 打開呢條 Link 先可以加入。",
+    copy: "複製 Link", copied: "複製咗",
+    broken: "呢條 Link 唔完整。叫對方再 send 過個邀請。"
+  } : {
+    who: from ? from + " invited you" : "You're invited",
+    title: list ? "Join “" + list + "”" : "Join a Somedate list",
+    sub: "A shared list of places to go. What either of you adds shows on both phones.",
+    open: "Open in Somedate",
+    noApp: "Don't have Somedate yet?",
+    s1: "Somedate is being tested. Ask " + them + " to add you as a tester. You'll get an email from TestFlight.",
+    s2: "Install TestFlight, then Somedate · 遲啲去 from it.",
+    s3: "Come back to this page and tap Open in Somedate.",
+    tip: "Nothing happens? Tap ··· at the top › Open in browser, then try again.",
+    small: "You'll need to be signed in to iCloud on your iPhone.",
+    other: "Somedate is an iPhone app. Open this link on your iPhone to join.",
+    copy: "Copy link", copied: "Copied",
+    broken: "This link isn't complete. Ask for a new invite."
+  };
+  if (zh) document.documentElement.lang = "zh-HK";
+  function set(id, text) { document.getElementById(id).textContent = text; }
+
+  set("who", t.who);
+  set("title", t.title);
+  if (!/^[A-Za-z0-9_-]{1,199}$/.test(code)) { set("sub", t.broken); return; }
+  set("sub", t.sub);
+
+  if (!iOS) {
+    document.getElementById("other").hidden = false;
+    set("otherText", t.other);
+    var copy = document.getElementById("copy");
+    copy.textContent = t.copy;
+    copy.addEventListener("click", function () {
+      var done = function () { copy.textContent = t.copied; };
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, function () {});
+    });
+    return;
+  }
+
+  document.getElementById("iphone").hidden = false;
+  var open = document.getElementById("open");
+  open.textContent = t.open;
+  open.href = "wishbite://join?" + q.toString();  // the app's own address: works from any browser, Instagram's too
+  set("noApp", t.noApp); set("s1", t.s1); set("s2", t.s2); set("s3", t.s3); set("small", t.small);
+  var tip = document.getElementById("tip");
+  tip.textContent = t.tip;
+  if (inApp) tip.hidden = false;
+  var getIt = document.getElementById("getIt");
+  document.getElementById("noApp").addEventListener("click", function () { getIt.hidden = !getIt.hidden; });
+  // still here a moment after Open: Somedate probably isn't installed - show how to get it
+  open.addEventListener("click", function () {
+    setTimeout(function () { if (!document.hidden) { getIt.hidden = false; tip.hidden = false; } }, 1800);
+  });
+})();
+</script>
+</body>
+</html>

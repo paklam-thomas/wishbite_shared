@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Somedate · 遲啲去</title>
+<meta name="description" content="Somedate · 遲啲去 - coming soon to the App Store.">
+<meta property="og:title" content="Somedate · 遲啲去">
+<meta property="og:description" content="Coming soon to the App Store.">
+<meta property="og:image" content="https://somedate.app/og.png">
+<meta property="og:url" content="https://somedate.app/">
+<meta property="og:site_name" content="Somedate">
+<meta name="theme-color" content="#232859">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/icon.png">
+<style>
+/* Somedate's home page: the night sky, folded map and rose pin of the app icon. One look on light and dark phones alike. */
+:root {
+  --sky-top: #2E3470; --sky-mid: #232859; --sky-bottom: #171A3A;
+  --star: #FFE8B0; --rose: #E84D73; --rose-soft: #FF8FAA; --paper: #E9E4F7; --paper-fold: #CFC8EA; --route: #8FA0E0;
+  --text: #FFFFFF; --soft: #CFC8EE; --muted: #A9A3D4;
+  --card: rgba(255,255,255,.065); --card-line: rgba(255,255,255,.12);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; color: var(--text); background: var(--sky-bottom);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang HK", "Noto Sans TC", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; overflow-x: hidden;
+}
+.sky { position: fixed; inset: 0; z-index: -2; background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-bottom) 100%); }
+.sky::after { content: ""; position: absolute; inset: 0;
+  background: radial-gradient(60% 40% at 80% 10%, rgba(232,77,115,.18), transparent 70%), radial-gradient(50% 35% at 10% 60%, rgba(143,160,224,.14), transparent 70%); }
+#stars { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 max(20px, env(safe-area-inset-left)); }
+a { color: var(--rose-soft); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--star); outline-offset: 3px; border-radius: 8px; }
+
+/* top bar */
+header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: rgba(23,26,58,.55); border-bottom: 1px solid rgba(255,255,255,.06); padding-top: env(safe-area-inset-top); }
+.bar { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
+.brand svg { width: 32px; height: 32px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,.3); }
+.brand small { font-weight: 500; color: var(--soft); font-size: 15px; }
+.lang { display: flex; background: rgba(255,255,255,.08); border-radius: 999px; padding: 3px; }
+.lang button { border: 0; background: transparent; color: var(--soft); font: inherit; font-size: 14px; font-weight: 600; padding: 5px 12px; border-radius: 999px; cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--paper); color: var(--sky-bottom); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding: 72px 0 56px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--star); letter-spacing: .04em;
+  background: rgba(255,232,176,.08); border: 1px solid rgba(255,232,176,.2); border-radius: 999px; padding: 5px 14px; }
+h1 { font-size: clamp(40px, 6.4vw, 68px); line-height: 1.05; letter-spacing: -.035em; margin: 20px 0 18px; font-weight: 800; text-wrap: balance; }
+h1 em { font-style: normal; background: linear-gradient(90deg, var(--rose-soft), var(--star)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { font-size: clamp(18px, 2vw, 21px); color: var(--soft); margin: 0 0 30px; max-width: 32em; text-wrap: pretty; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.store { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #111; border-radius: 14px; padding: 11px 20px 11px 16px; text-decoration: none; }
+.store svg { width: 26px; height: 26px; }
+.store span { display: flex; flex-direction: column; line-height: 1.15; }
+.store small { font-size: 11px; font-weight: 500; }
+.store b { font-size: 18px; letter-spacing: -.01em; }
+.beta { font-size: 15px; color: var(--muted); }
+.beta a { color: var(--soft); }
+
+/* "Ask to try it" chooser: iPhone Mail, Gmail, Outlook or copy the address. A sheet from the bottom on phones. */
+.pick { border: 1px solid var(--card-line); border-radius: 22px; padding: 22px 20px 18px; width: min(380px, calc(100% - 32px));
+  background: #232859; color: var(--text); box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+.pick::backdrop { background: rgba(10,11,30,.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.pick h3 { outline: none; margin: 0 0 4px; font-size: 20px; letter-spacing: -.01em; }
+.pick > p { margin: 0 0 16px; color: var(--soft); font-size: 15px; }
+.pick .opts { display: grid; gap: 8px; }
+.pick .opts button { display: flex; align-items: center; gap: 12px; width: 100%; border: 1px solid var(--card-line); border-radius: 14px;
+  background: rgba(255,255,255,.06); color: var(--text); font: inherit; font-size: 17px; font-weight: 600; padding: 10px 12px; cursor: pointer; text-align: left; }
+.pick .opts button:hover { background: rgba(255,255,255,.11); }
+.pick .opts i { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; background: var(--c); }
+.pick .opts i svg { width: 20px; height: 20px; }
+.pick .opts small { display: block; color: var(--muted); font-size: 13px; font-weight: 500; }
+.pick .done { display: block; width: 100%; margin-top: 12px; border: 0; background: transparent; color: var(--soft); font: inherit; font-size: 16px; padding: 8px; cursor: pointer; }
+@media (max-width: 600px) {
+  .pick { margin: auto auto 0; width: 100%; max-width: 100%; border-radius: 22px 22px 0 0; border-bottom: 0;
+    padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+}
+
+.scene { position: relative; width: 100%; max-width: 480px; justify-self: center; }
+.scene svg { width: 100%; height: auto; display: block; overflow: visible; }
+.pin { animation: bob 4.5s ease-in-out infinite; transform-origin: 240px 300px; }
+.pin-shadow { animation: shade 4.5s ease-in-out infinite; transform-origin: 240px 352px; }
+.dash { animation: walk 2.8s linear infinite; }
+.mini { animation: pop 6s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.mini.b { animation-delay: 1.4s; } .mini.c { animation-delay: 2.8s; }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+@keyframes shade { 0%,100% { transform: scale(1); opacity: .32; } 50% { transform: scale(.82); opacity: .2; } }
+@keyframes walk { to { stroke-dashoffset: -64; } }
+@keyframes pop { 0%,70%,100% { transform: scale(1); } 78% { transform: scale(1.25); } 86% { transform: scale(.95); } }
+
+footer { border-top: 1px solid rgba(255,255,255,.07); padding: 28px 0 max(28px, env(safe-area-inset-bottom)); color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; }
+footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+footer a { color: var(--soft); text-decoration: none; }
+footer a:hover { color: #fff; }
+
+/* reveal on scroll */
+.rise { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.rise.in { opacity: 1; transform: none; }
+
+html:not([lang="zh-HK"]) [data-zh], html[lang="zh-HK"] [data-en] { display: none !important; }
+html[lang="zh-HK"] h1 { letter-spacing: 0; line-height: 1.15; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding: 40px 0 24px; gap: 20px; text-align: center; }
+  .hero .lead { margin-left: auto; margin-right: auto; }
+  .hero .cta { justify-content: center; }
+  .scene { max-width: 360px; grid-row: 1; }
+  .brand small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pin, .pin-shadow, .dash, .mini { animation: none; }
+  .rise { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<!-- the app icon, drawn once and reused -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="ig" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2E3470"/><stop offset="1" stop-color="#171A3A"/></linearGradient>
+    <symbol id="icon" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="url(#ig)"/>
+      <g fill="#FFE8B0"><circle cx="180" cy="200" r="9" opacity=".9"/><circle cx="830" cy="170" r="7" opacity=".8"/><circle cx="760" cy="320" r="5" opacity=".6"/><circle cx="250" cy="420" r="5" opacity=".6"/><circle cx="880" cy="470" r="8" opacity=".85"/><circle cx="130" cy="560" r="4" opacity=".5"/></g>
+      <path d="M300,640 L441,640 L391,880 L150,880 Z" fill="#E9E4F7"/><path d="M441,640 L583,640 L633,880 L391,880 Z" fill="#CFC8EA"/><path d="M583,640 L724,640 L874,880 L633,880 Z" fill="#E9E4F7"/>
+      <path d="M245,730 C380,760 470,700 560,735 S700,800 809,800" fill="none" stroke="#8FA0E0" stroke-width="22" stroke-linecap="round" opacity=".55"/>
+      <path d="M250,845 C330,800 360,760 440,770 S500,760 512,740" fill="none" stroke="#E84D73" stroke-width="14" stroke-linecap="round" stroke-dasharray="2 30"/>
+      <ellipse cx="512" cy="760" rx="70" ry="16" fill="#000" opacity=".3"/>
+      <path d="M512,721.2 L662.2,469.7 A175,175 0 1 0 361.8,469.7 Z" fill="#E84D73"/>
+      <path d="M512,461.4 C458,425.4 427.4,393 427.4,355.2 C427.4,324.6 449,306.6 474.2,306.6 C492.2,306.6 504.8,317.4 512,333.6 C519.2,317.4 531.8,306.6 549.8,306.6 C575,306.6 596.6,324.6 596.6,355.2 C596.6,393 566,425.4 512,461.4 Z" fill="#fff"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><svg viewBox="0 0 1024 1024" role="img" aria-label="Somedate icon"><use href="#icon"/></svg>Somedate <small>遲啲去</small></a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set="en" aria-pressed="true">EN</button>
+      <button type="button" data-set="zh-HK" aria-pressed="false">粵</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">★ <span data-en>For iPhone · English &amp; 廣東話</span><span data-zh>iPhone App · 英文同廣東話</span></span>
+      <h1 data-en>All the places you'll go… <em>someday.</em></h1>
+      <h1 data-zh>想去嘅地方，<em>遲啲去。</em></h1>
+      <p class="lead" data-en>A new iPhone app, made in Hong Kong. Coming soon to the App Store.</p>
+      <p class="lead" data-zh>香港製造嘅新 iPhone App，好快登陸 App Store。</p>
+      <div class="cta">
+        <span class="store" aria-label="Coming soon to the App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-2.9-4.2zM13.9 5.2c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.6 3-1.5z"/></svg>
+          <span><small data-en>Coming soon to the</small><small data-zh>即將登陸</small><b>App Store</b></span>
+        </span>
+        <span class="beta" data-en>Now in beta. <a class="ask" href="mailto:cs@somedate.app?subject=Somedate%20beta">Ask to try it</a></span>
+        <span class="beta" data-zh>測試緊。<a class="ask" href="mailto:cs@somedate.app?subject=Somedate%20beta">想試用？</a></span>
+      </div>
+    </div>
+
+    <div class="scene" aria-hidden="true">
+      <svg viewBox="0 0 480 440">
+        <defs>
+          <linearGradient id="pinG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF6B8E"/><stop offset="1" stop-color="#D93B63"/></linearGradient>
+          <radialGradient id="glow"><stop offset="0" stop-color="#E84D73" stop-opacity=".45"/><stop offset="1" stop-color="#E84D73" stop-opacity="0"/></radialGradient>
+        </defs>
+        <circle cx="240" cy="200" r="190" fill="url(#glow)"/>
+        <!-- moon -->
+        <circle cx="400" cy="60" r="26" fill="#FFE8B0" opacity=".95"/><circle cx="412" cy="52" r="24" fill="#232859"/>
+        <!-- folded map -->
+        <g>
+          <path d="M120,300 L200,300 L172,430 L30,430 Z" fill="#E9E4F7"/>
+          <path d="M200,300 L280,300 L308,430 L172,430 Z" fill="#CFC8EA"/>
+          <path d="M280,300 L360,300 L450,430 L308,430 Z" fill="#E9E4F7"/>
+          <path d="M70,360 C150,375 200,340 250,358 S330,392 410,392" fill="none" stroke="#8FA0E0" stroke-width="12" stroke-linecap="round" opacity=".55"/>
+          <path d="M100,330 C140,322 170,310 190,318" fill="none" stroke="#8FA0E0" stroke-width="5" stroke-linecap="round" opacity=".4"/>
+          <path d="M310,330 C340,326 360,340 390,334" fill="none" stroke="#8FA0E0" stroke-width="5" stroke-linecap="round" opacity=".4"/>
+          <path class="dash" d="M60,418 C110,392 140,360 190,366 S232,360 240,350" fill="none" stroke="#E84D73" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 14"/>
+          <!-- little pins on the map: food, art, hike -->
+          <g class="mini"><path d="M110,392 l-9,-14 a11,11 0 1 1 18,0 z" fill="#FFB547"/><circle cx="110" cy="370" r="4" fill="#fff"/></g>
+          <g class="mini b"><path d="M352,380 l-9,-14 a11,11 0 1 1 18,0 z" fill="#8FA0E0"/><circle cx="352" cy="358" r="4" fill="#fff"/></g>
+          <g class="mini c"><path d="M300,416 l-9,-14 a11,11 0 1 1 18,0 z" fill="#6FCF97"/><circle cx="300" cy="394" r="4" fill="#fff"/></g>
+        </g>
+        <ellipse class="pin-shadow" cx="240" cy="352" rx="40" ry="9" fill="#000" opacity=".32"/>
+        <g class="pin">
+          <path d="M240,330 L326,186 A100,100 0 1 0 154,186 Z" fill="url(#pinG)"/>
+          <path d="M240,182 C209,161 192,143 192,121 C192,104 204,93 219,93 C229,93 236,99 240,109 C244,99 251,93 261,93 C276,93 288,104 288,121 C288,143 271,161 240,182 Z" fill="#fff"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-en>© 2026 Thomas Kong · Made in Hong Kong</span><span data-zh>© 2026 Thomas Kong · 香港製造</span>
+    <nav>
+      <a href="support.html" data-en>Help</a><a href="support.html" data-zh>幫助</a>
+      <a href="privacy.html" data-en>Privacy</a><a href="privacy.html" data-zh>私隱政策</a>
+      <a href="mailto:cs@somedate.app" data-en>Contact</a><a href="mailto:cs@somedate.app" data-zh>聯絡</a>
+    </nav>
+  </div>
+</footer>
+
+<dialog class="pick" id="pick" aria-labelledby="pickTitle">
+  <h3 id="pickTitle" tabindex="-1" autofocus><span data-en>Ask to try Somedate</span><span data-zh>申請試用遲啲去</span></h3>
+  <p><span data-en>Send an email to cs@somedate.app with:</span><span data-zh>用以下方法 send 電郵去 cs@somedate.app：</span></p>
+  <div class="opts">
+    <button type="button" data-via="mail"><i style="--c:#1E88F5"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h18v11H3z" fill="#fff"/><path d="M3.5 7l8.5 6.5L20.5 7" fill="none" stroke="#1E88F5" stroke-width="1.8" stroke-linejoin="round"/></svg></i>
+      <span><span data-en>Mail</span><span data-zh>郵件 App</span><small data-en>The iPhone or Mac mail app</small><small data-zh>iPhone 或 Mac 內置</small></span></button>
+    <button type="button" data-via="gmail"><i style="--c:#fff"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9 6.5L21 7v11h-3.5V11L12 15 6.5 11v7H3z" fill="#EA4335"/></svg></i>
+      <span>Gmail</span></button>
+    <button type="button" data-via="outlook"><i style="--c:#0A64D6"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5.5" fill="none" stroke="#fff" stroke-width="2.6"/></svg></i>
+      <span>Outlook</span></button>
+    <button type="button" data-via="copy"><i style="--c:rgba(255,255,255,.16)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="2" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></i>
+      <span><span class="copyLabel" data-en>Copy the address</span><span class="copyLabel" data-zh>複製電郵地址</span><small>cs@somedate.app</small></span></button>
+  </div>
+  <button type="button" class="done"><span data-en>Cancel</span><span data-zh>取消</span></button>
+</dialog>
+
+<script>
+(function () {
+  // "Ask to try it": let people pick iPhone Mail, Gmail or Outlook (or copy the address) instead of always opening Mail.
+  // Without JavaScript or <dialog> the links stay plain mailto: links.
+  var pick = document.getElementById("pick");
+  if (pick && pick.showModal) {
+    var to = "cs@somedate.app", subject = "Somedate beta";
+    var mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    function q(s) { return encodeURIComponent(s); }
+    var app = {
+      gmail: "googlegmail:///co?to=" + q(to) + "&subject=" + q(subject),
+      outlook: "ms-outlook://compose?to=" + q(to) + "&subject=" + q(subject)
+    };
+    var web = {
+      gmail: "https://mail.google.com/mail/?view=cm&fs=1&to=" + q(to) + "&su=" + q(subject),
+      outlook: "https://outlook.live.com/mail/0/deeplink/compose?to=" + q(to) + "&subject=" + q(subject)
+    };
+    // on a phone try the app first; if the page is still showing a moment later the app isn't there, so open the website
+    function open(via) {
+      if (!mobile) { window.open(web[via], "_blank", "noopener"); return; }
+      var left = false;
+      function gone() { if (document.hidden) left = true; }
+      document.addEventListener("visibilitychange", gone);
+      window.addEventListener("pagehide", gone);
+      location.href = app[via];
+      setTimeout(function () {
+        document.removeEventListener("visibilitychange", gone);
+        window.removeEventListener("pagehide", gone);
+        if (!left && !document.hidden) location.href = web[via];
+      }, 1500);
+    }
+    document.querySelectorAll("a.ask").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); pick.showModal(); });
+    });
+    pick.addEventListener("click", function (e) {
+      if (e.target === pick) {   // tap outside the card (the backdrop counts as the dialog itself)
+        var r = pick.getBoundingClientRect();
+        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) pick.close();
+        return;
+      }
+      var b = e.target.closest("button");
+      if (!b) return;
+      var via = b.dataset.via;
+      if (!via) { pick.close(); return; }
+      if (via === "mail") { location.href = "mailto:" + to + "?subject=" + q(subject); pick.close(); }
+      else if (via === "copy") {
+        var labels = b.querySelectorAll(".copyLabel");
+        function copied() {
+          labels[0].textContent = "Copied ✓"; labels[1].textContent = "已複製 ✓";
+          setTimeout(function () { labels[0].textContent = "Copy the address"; labels[1].textContent = "複製電郵地址"; }, 2000);
+        }
+        if (navigator.clipboard) navigator.clipboard.writeText(to).then(copied, function () {});
+      }
+      else { pick.close(); open(via); }
+    });
+  }
+
+  // reveal sections as they scroll in
+  var rise = document.querySelectorAll(".rise");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    rise.forEach(function (el) { io.observe(el); });
+  } else rise.forEach(function (el) { el.classList.add("in"); });
+
+})();
+</script>
+<script src="site.js"></script>
+</body>
+</html>
