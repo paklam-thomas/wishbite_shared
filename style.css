@@ -41,6 +41,9 @@ h1 { font-size: clamp(34px, 6vw, 48px); line-height: 1.1; letter-spacing: -.03em
 .topic p { margin: 0; color: var(--soft); }
 .topic p + p { margin-top: 10px; }
 .topic b { color: var(--text); }
+/* privacy: what's only on iPhone or only on Android, labelled */
+.os { display: inline-block; font-size: 12px; font-weight: 600; line-height: 1; padding: 4px 9px; margin-right: 8px; border-radius: 999px;
+  border: 1px solid var(--card-line); color: var(--text); background: rgba(255,255,255,.06); vertical-align: 2px; }
 .highlight { background: linear-gradient(160deg, rgba(232,77,115,.18), rgba(143,160,224,.10)); border: 1px solid var(--card-line);
   border-radius: 20px; padding: 20px 24px; margin: 0 0 24px; font-size: 18px; }
 .contact { text-align: center; margin-top: 36px; }
