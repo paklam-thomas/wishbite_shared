@@ -1,6 +1,6 @@
-# Somedate isn't released yet: no search engines, no AI crawlers.
+# Somedate is out: search engines welcome. AI crawlers still not.
 User-agent: *
-Disallow: /
+Allow: /
 
 User-agent: GPTBot
 Disallow: /
