@@ -7,6 +7,12 @@
   function setLang(l) {
     document.documentElement.lang = l;
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.set === l)); });
+    // how-to clips: only the shown language plays (the other never downloads); reduced motion gets controls instead
+    document.querySelectorAll("video.clip").forEach(function (v) {
+      if (v.offsetParent === null) { v.pause(); return; }
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { v.controls = true; return; }
+      var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; });
+    });
   }
   buttons.forEach(function (b) {
     b.addEventListener("click", function () {

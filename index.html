@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Somedate · 遲啲去</title>
-<meta name="description" content="Somedate · 遲啲去 - out now on the App Store, coming soon to Google Play.">
+<meta name="description" content="Save the food, cafés, exhibitions and hikes you see on Instagram and Threads. Somedate puts them on your map and reminds you when you walk by.">
 <meta property="og:title" content="Somedate · 遲啲去">
-<meta property="og:description" content="Out now on the App Store, coming soon to Google Play.">
+<meta property="og:description" content="All the places you'll go, someday. Save them from any post; Somedate puts them on your map.">
 <meta property="og:image" content="https://somedate.app/og.png">
 <meta property="og:url" content="https://somedate.app/">
 <meta property="og:site_name" content="Somedate">
@@ -96,6 +96,68 @@ h1 em { font-style: normal; background: linear-gradient(90deg, var(--rose-soft),
 @keyframes walk { to { stroke-dashoffset: -64; } }
 @keyframes pop { 0%,70%,100% { transform: scale(1); } 78% { transform: scale(1.25); } 86% { transform: scale(.95); } }
 
+/* sections */
+section { padding: 64px 0; }
+.kicker { color: var(--rose-soft); font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.12; letter-spacing: -.025em; margin: 0 0 14px; text-wrap: balance; }
+.intro { color: var(--soft); font-size: 19px; max-width: 36em; margin: 0 0 36px; text-wrap: pretty; }
+
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: s; }
+.step { position: relative; background: var(--card); border: 1px solid var(--card-line); border-radius: 22px; padding: 26px 24px; }
+.step::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--rose); color: #fff; font-weight: 800; font-size: 16px; margin-bottom: 16px; box-shadow: 0 6px 18px rgba(232,77,115,.4); }
+.step h3, .feat h3 { margin: 0 0 6px; font-size: 20px; letter-spacing: -.01em; }
+.step p, .feat p { margin: 0; color: var(--soft); font-size: 16px; }
+
+.feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.feat { background: var(--card); border: 1px solid var(--card-line); border-radius: 22px; padding: 24px; transition: transform .25s ease, border-color .25s ease; }
+.feat:hover { transform: translateY(-3px); border-color: rgba(255,143,170,.35); }
+.feat .ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 16px; background: rgba(232,77,115,.16); }
+.feat .ic svg { width: 26px; height: 26px; }
+.feat.wide { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+.feat.full { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+.trip { display: grid; gap: 8px; }
+.trip .city { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; padding: 4px 2px 0; }
+
+/* little mock cards */
+.notif { background: rgba(233,228,247,.94); color: #1d1b33; border-radius: 18px; padding: 12px 14px; display: flex; gap: 11px; align-items: flex-start;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35); font-size: 14px; line-height: 1.4; }
+.notif svg { width: 36px; height: 36px; border-radius: 9px; flex: none; }
+.notif b { display: flex; justify-content: space-between; font-size: 14px; }
+.notif b span { font-weight: 400; color: #5b5878; font-size: 12px; }
+.notif p { margin: 2px 0 0; color: #2c2a45; font-size: 14px; }
+.together { display: flex; flex-direction: column; gap: 10px; }
+.row { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.07); border-radius: 14px; padding: 10px 12px; font-size: 15px; }
+.row .dot { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-size: 18px; background: rgba(255,232,176,.14); flex: none; }
+.row div { flex: 1; min-width: 0; }
+.row small { display: block; color: var(--muted); font-size: 13px; }
+.who { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; color: #fff; }
+.who.a { background: var(--rose); } .who.b { background: #5C6BC0; }
+
+/* screenshots in phone frames, fanned out */
+.phones { display: flex; justify-content: center; align-items: flex-start; gap: clamp(14px, 3vw, 40px); padding-top: 18px; }
+.phone { margin: 0; width: min(23%, 250px); display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.phone .screen { width: 100%; aspect-ratio: 660 / 1434; border-radius: 15% / 7%; padding: 3.2%; background: #0c0d1f;
+  box-shadow: 0 0 0 1.5px rgba(255,255,255,.14), 0 30px 70px rgba(0,0,0,.5), 0 0 60px rgba(232,77,115,.12); }
+.phone img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 12.5% / 5.8%; }
+.phone figcaption { text-align: center; font-size: 15px; color: var(--soft); line-height: 1.4; }
+.phone figcaption b { display: block; color: var(--text); font-size: 17px; }
+
+/* privacy */
+.night { background: linear-gradient(160deg, rgba(232,77,115,.16), rgba(143,160,224,.10)); border: 1px solid var(--card-line); border-radius: 30px;
+  padding: clamp(28px, 5vw, 56px); display: grid; grid-template-columns: 1.1fr 1fr; gap: 36px; align-items: center; }
+.ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.ticks li { display: flex; gap: 12px; align-items: flex-start; font-size: 17px; }
+.ticks li::before { content: ""; flex: none; width: 22px; height: 22px; margin-top: 2px; border-radius: 50%;
+  background: var(--rose) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat; }
+.ticks small { display: block; color: var(--muted); font-size: 15px; }
+
+.end { text-align: center; padding: 80px 0 40px; }
+.end svg.big { width: 112px; height: 112px; border-radius: 26px; box-shadow: 0 18px 50px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); margin-bottom: 22px; }
+.end h2 { margin-bottom: 10px; }
+.end .intro { margin: 0 auto 28px; }
+.end .cta { justify-content: center; }
+
 footer { border-top: 1px solid rgba(255,255,255,.07); padding: 28px 0 max(28px, env(safe-area-inset-bottom)); color: var(--muted); font-size: 14px; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; }
 footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
@@ -114,6 +176,14 @@ html[lang="zh-HK"] h1 { letter-spacing: 0; line-height: 1.15; }
   .hero .lead { margin-left: auto; margin-right: auto; }
   .hero .cta { justify-content: center; }
   .scene { max-width: 360px; grid-row: 1; }
+  .steps, .feats { grid-template-columns: 1fr; }
+  .feat.wide, .feat.full { grid-column: auto; grid-template-columns: 1fr; }
+  .night { grid-template-columns: 1fr; }
+  .phones { overflow-x: auto; justify-content: flex-start; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 40px 20px 8px; scrollbar-width: none; }
+  .phones::-webkit-scrollbar { display: none; }
+  .phone { width: 62%; flex: none; scroll-snap-align: center; }
+  .phones::after { content: ""; flex: none; width: 1px; }
+  section { padding: 48px 0; }
   .brand small { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -160,8 +230,8 @@ html[lang="zh-HK"] h1 { letter-spacing: 0; line-height: 1.15; }
       <span class="eyebrow">★ <span data-en>For iPhone &amp; Android · English &amp; 廣東話</span><span data-zh>iPhone 同 Android App · 英文同廣東話</span></span>
       <h1 data-en>All the places you'll go… <em>someday.</em></h1>
       <h1 data-zh>想去嘅地方，<em>遲啲去。</em></h1>
-      <p class="lead" data-en>A new app for iPhone and Android, made in Hong Kong. Out now on the App Store, coming soon to Google Play.</p>
-      <p class="lead" data-zh>香港製造嘅新 App，iPhone 同 Android 都有，App Store 已經上架，Google Play 好快推出。</p>
+      <p class="lead" data-en>That bakery in Sham Shui Po. The exhibition ending next month. The hike a friend sent you. Share any post to Somedate and it lands on your map, ready for the day you're nearby.</p>
+      <p class="lead" data-zh>深水埗嘅麵包舖、下個月完嘅展覽、朋友 send 俾你嘅行山路線。將 post 分享去遲啲去，自動放上地圖，等你行到附近嗰日就用得著。講真，有心未怕遲。</p>
       <div class="cta">
         <a class="store" href="https://apps.apple.com/hk/app/somedate/id6820637755" aria-label="Download on the App Store">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-2.9-4.2zM13.9 5.2c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.6 3-1.5z"/></svg>
@@ -208,6 +278,161 @@ html[lang="zh-HK"] h1 { letter-spacing: 0; line-height: 1.15; }
     </div>
   </div>
 
+  <section id="how">
+    <div class="wrap">
+      <p class="kicker rise" data-en>How it works</p><p class="kicker rise" data-zh>點用</p>
+      <h2 class="rise" data-en>Three taps from “we should go” to going.</h2>
+      <h2 class="rise" data-zh>由「下次去呢間」到真係去，三步。</h2>
+      <div class="steps">
+        <div class="step rise">
+          <h3 data-en>See it</h3><h3 data-zh>見到</h3>
+          <p data-en>A post on Instagram or Threads, a link, or a screenshot of a friend's message.</p>
+          <p data-zh>Instagram 或 Threads 嘅 post、一條 Link，或者朋友訊息嘅截圖。</p>
+        </div>
+        <div class="step rise">
+          <h3 data-en>Share it</h3><h3 data-zh>分享</h3>
+          <p data-en>Tap Share › Somedate. It finds the place and what's good there, and pins it on your map.</p>
+          <p data-zh>撳 分享 › 遲啲去，自動搵出地方同招牌嘢，放上地圖。</p>
+        </div>
+        <div class="step rise">
+          <h3 data-en>Go, someday</h3><h3 data-zh>遲啲去</h3>
+          <p data-en>Walk past it and Somedate gives you a nudge. Someday comes a lot sooner.</p>
+          <p data-zh>行過附近，遲啲去會提你。「遲啲」好快就到。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="wrap">
+      <p class="kicker rise" data-en>A look inside</p><p class="kicker rise" data-zh>睇吓個 App</p>
+      <h2 class="rise" data-en>Made for nights out, and days off.</h2>
+      <h2 class="rise" data-zh>放假、收工，即刻有得去。</h2>
+      <div class="phones">
+        <figure class="phone rise">
+          <div class="screen"><img data-en src="shots/map-en.jpg" alt="Somedate map of Hong Kong with saved places pinned" width="660" height="1434" loading="lazy"><img data-zh src="shots/map-zh.jpg" alt="遲啲去地圖，香港各區儲咗嘅地方" width="660" height="1434" loading="lazy"></div>
+          <figcaption><b data-en>Your map</b><b data-zh>你嘅地圖</b><span data-en>Every saved place, pinned.</span><span data-zh>Save咗嘅地方，全部放上地圖</span></figcaption>
+        </figure>
+        <figure class="phone rise">
+          <div class="screen"><img data-en src="shots/list-en.jpg" alt="Want to go list sorted by Hong Kong district" width="660" height="1434" loading="lazy"><img data-zh src="shots/list-zh.jpg" alt="想去清單，按香港地區排好" width="660" height="1434" loading="lazy"></div>
+          <figcaption><b data-en>Want to go</b><b data-zh>想去</b><span data-en>Eat and Go, by district.</span><span data-zh>食同去，按地區排好。</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <p class="kicker rise" data-en>What's inside</p><p class="kicker rise" data-zh>有咩功能</p>
+      <h2 class="rise" data-en>Not just food. Anywhere you'd like to go.</h2>
+      <h2 class="rise" data-zh>唔止食。想去嘅地方都得。</h2>
+      <p class="intro rise" data-en>Restaurants, cafés and bakeries sit next to exhibitions, pop-ups and hikes, each with the dates that matter.</p>
+      <p class="intro rise" data-zh>餐廳、cafe、麵包舖，同展覽、Pop-up、行山路線等等都可以放，幫你記埋重要日子。</p>
+
+      <div class="feats">
+        <div class="feat wide rise">
+          <div>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8FAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7 6 13 6 13s6-6 6-13z"/><circle cx="12" cy="8" r="2"/></svg></div>
+            <h3 data-en>A nudge as you walk by</h3><h3 data-zh>行過就提你</h3>
+            <p data-en>Pass a dessert shop on your list and Somedate lets you know. At most once a week per place, and your location never leaves your phone.</p>
+            <p data-zh>經過清單入面嘅甜品舖，遲啲去會提你。每個地方一星期最多一次，你嘅位置唔會離開部電話。</p>
+          </div>
+          <div class="notif" role="img" aria-label="Example notification">
+            <svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#icon"/></svg>
+            <div style="flex:1">
+              <b>Somedate <span data-en>now</span><span data-zh>而家</span></b>
+              <p data-en><strong>Mammy Pancake</strong> is 2 minutes away. Still on your list!</p>
+              <p data-zh><strong>媽咪雞蛋仔</strong>就喺兩分鐘外，仲喺你張清單度！</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feat rise">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8FAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></div>
+          <h3 data-en>Never miss the last day</h3><h3 data-zh>唔再錯過最後一日</h3>
+          <p data-en>Limited-time menus, exhibitions and pop-ups keep their dates, so you hear about it before they end.</p>
+          <p data-zh>會記住限時Menu，展覽同 Pop-up 日期，完之前會提你。</p>
+        </div>
+
+        <div class="feat rise">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8FAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></div>
+          <h3 data-en>Bring your Instagram Saved</h3><h3 data-zh>匯入你嘅 Instagram 收藏</h3>
+          <p data-en>Saved hundreds of posts already? Bring them all in at once. Each collection gets its own list, or put them all in one list. Posts that aren't places are skipped. <a href="support.html#import">How</a></p>
+          <p data-zh>收藏咗幾百個 post？一次過搬晒入嚟。每個收藏集各自一個清單 或 集合成一個清單，唔係地方嘅 post 會略過。<a href="support.html#import">點做</a></p>
+        </div>
+
+        <div class="feat rise">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8FAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg></div>
+          <h3 data-en>Your map, by district</h3><h3 data-zh>用香港18區幫你分類</h3>
+          <p data-en>Everything sorted into Hong Kong's 18 districts. Search by dish: “egg tart Wan Chai”.</p>
+          <p data-zh>按香港 18 區排好。用食物搜尋：「蛋撻 灣仔」。</p>
+        </div>
+
+        <div class="feat rise">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8FAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></div>
+          <h3 data-en>Went? Keep it</h3><h3 data-zh>去咗？記低佢</h3>
+          <p data-en>Tick it off, keep a photo of the day, and mark the ones worth going again.</p>
+          <p data-zh>剔走去過嘅地方，留低當日嘅相，Good 嘅就記住再去，唔Good就入小氣薄。</p>
+        </div>
+
+        <div class="feat wide full rise">
+          <div>
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8FAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5 3 11l1.5-1.5 7 1 4-4.5a2.1 2.1 0 0 1 3 3l-4.5 4 1 7L14.5 21 12 13.5"/></svg></div>
+            <h3 data-en>Saving for a trip, too</h3><h3 data-zh>去旅行都用得</h3>
+            <p data-en>That ramen shop in Tokyo, the night-market stall in Taipei. Places outside Hong Kong go into Travel, sorted by country and city, so they're all there when you land. The one you wanted is fully booked, or plans change? No worries: open the map, and your plan B is already waiting nearby.</p>
+            <p data-zh>東京嗰間拉麵、台北夜市嗰檔，香港以外嘅地方會放入「旅行」，按國家同城市排好，一落機就搵到。本身想食個間餐廳Full booking/有意外發生？0驚，打開地圖，後備餐廳早就喺附近等緊你。</p>
+          </div>
+          <div class="trip" role="img" aria-label="Example Travel list: Tokyo and Taipei">
+            <div class="city"><span data-en>Japan · Tokyo</span><span data-zh>日本 · 東京</span><span>3</span></div>
+            <div class="row"><span class="dot">🍜</span><div>Ramen Nagi<small data-en>Shinjuku · tonkotsu</small><small data-zh>新宿 · 豚骨拉麵</small></div></div>
+            <div class="row"><span class="dot">🍕</span><div>Pizza Studio Tamaki<small data-en>Azabu · margherita</small><small data-zh>麻布 · Margherita</small></div></div>
+            <div class="city"><span data-en>Taiwan · Taipei</span><span data-zh>台灣 · 台北</span><span>2</span></div>
+            <div class="row"><span class="dot">🥟</span><div>鼎泰豐 信義店<small data-en>Xinyi · xiao long bao</small><small data-zh>信義 · 小籠包</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="night rise">
+        <div>
+          <p class="kicker" data-en>Private by design</p><p class="kicker" data-zh>私隱優先</p>
+          <h2 data-en>Your someday list is yours.</h2><h2 data-zh>你張清單，只屬於你。</h2>
+          <p class="intro" style="margin:0" data-en>No sign-up, no ads, nothing tracked. Your places stay on your phone.</p>
+          <p class="intro" style="margin:0" data-zh>唔使註冊、冇廣告、冇追蹤。你嘅地方只save喺你部電話。</p>
+        </div>
+        <ul class="ticks">
+          <li><span><span data-en>No account</span><span data-zh>冇帳戶</span><small data-en>Open it and start saving.</small><small data-zh>打開就用得。</small></span></li>
+          <li><span><span data-en>No AI unless you want it</span><span data-zh>預設唔用 AI</span><small data-en>Somedate reads the post's own words to find the place.</small><small data-zh>遲啲去由 post 本身嘅字搵出地方。</small></span></li>
+          <li><span><span data-en>Free for your first 50 places</span><span data-zh>頭 50 個地方免費</span><small data-en>Places you've been to don't count.</small><small data-zh>去過嘅地方唔計。</small></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="end">
+    <div class="wrap">
+      <svg class="big rise" viewBox="0 0 1024 1024" role="img" aria-label="Somedate icon"><use href="#icon"/></svg>
+      <h2 class="rise" data-en>Someday starts with saving it.</h2>
+      <h2 class="rise" data-zh>遲啲去，由記低開始。</h2>
+      <p class="intro rise" data-en>Out now on the App Store, coming soon to Google Play.</p>
+      <p class="intro rise" data-zh>App Store 已經上架，Google Play 好快推出。</p>
+      <div class="cta rise">
+        <a class="store" href="https://apps.apple.com/hk/app/somedate/id6820637755" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#111" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-2.9-4.2zM13.9 5.2c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.6 3-1.5z"/></svg>
+          <span><small data-en>Download on the</small><small data-zh>即刻下載</small><b>App Store</b></span>
+        </a>
+        <span class="store" aria-label="Coming soon to Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D7FE" d="M3.6 1.8c-.3.3-.4.7-.4 1.3v17.8c0 .5.2 1 .4 1.3l.1.1 9.9-9.9v-.2L3.7 1.7z"/><path fill="#FFCE00" d="M16.9 15.7l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-3.9 2.2z"/><path fill="#FF3A44" d="M17 15.6l-3.4-3.4L3.6 22.2c.4.4 1 .4 1.7.1L17 15.6"/><path fill="#00F076" d="M17 8.8L5.3 2.1c-.7-.4-1.3-.3-1.7.1l10 10L17 8.8z"/></svg>
+          <span><small data-en>Coming soon to</small><small data-zh>即將登陸</small><b>Google Play</b></span>
+        </span>
+        <span class="beta" data-en>Android in beta. <a class="ask" href="mailto:cs@somedate.app?subject=Somedate%20beta">Ask to try it</a></span>
+        <span class="beta" data-zh>Android 測試緊。<a class="ask" href="mailto:cs@somedate.app?subject=Somedate%20beta">想試用？</a></span>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>

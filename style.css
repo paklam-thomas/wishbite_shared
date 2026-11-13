@@ -58,3 +58,9 @@ footer a:hover { color: #fff; }
 
 html:not([lang="zh-HK"]) [data-zh], html[lang="zh-HK"] [data-en] { display: none !important; }
 @media (max-width: 600px) { .brand small { display: none; } .topic { padding: 18px; } }
+.ticks { list-style: none; margin: 12px 0; padding: 12px 16px; border-radius: 14px; background: rgba(255,255,255,.05); color: var(--soft); }
+.ticks li { position: relative; padding-left: 26px; line-height: 1.9; }
+.ticks li::before { content: "✓"; position: absolute; left: 2px; color: var(--rose-soft); font-weight: 700; }
+.howto { display: grid; grid-template-columns: 1fr 220px; gap: 22px; align-items: start; }
+.clip { display: block; width: 100%; height: auto; border-radius: 22px; background: #0c0d1f; border: 1px solid var(--card-line); }
+@media (max-width: 600px) { .howto { grid-template-columns: 1fr; } .clip { width: min(100%, 280px); margin: 0 auto; } }
