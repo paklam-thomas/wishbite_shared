@@ -78,3 +78,22 @@
   size();
   if (!still) requestAnimationFrame(function (t) { last = t; draw(t); });
 })();
+
+// Help: Share a post acted out, as in the app's tour - each step held a moment, a press, then the next; once it has
+// played it goes round more calmly. Starts when it comes into view.
+(function () {
+  var story = document.querySelector(".story");
+  if (!story) return;
+  var holds = [900, 1000, 1000, 1100], calmer = 1.8, started = false;
+  function play(step, first) {
+    story.dataset.step = step;
+    story.classList.remove("pressing");
+    var hold = holds[step] * (first ? 1 : calmer);
+    if (step < 3) setTimeout(function () { story.classList.add("pressing"); }, hold * .65);
+    setTimeout(function () { play((step + 1) % 4, first && step < 3); }, hold);
+  }
+  story.dataset.step = 0;
+  new IntersectionObserver(function (seen) {
+    if (!started && seen[0].isIntersecting) { started = true; play(0, true); }
+  }, { threshold: .5 }).observe(story);
+})();
